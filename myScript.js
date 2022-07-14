@@ -1,70 +1,87 @@
+let computerChoice = "default";
+let playerChoice = "default";
+let roundWinner = "default";
+
 function computerSelection() {
- selection = Math.floor(Math.random() * 3 + 1)
- if (selection === 1) {
-    console.log('Ai chose Rock');
-    return computerSelection = 'Rock';
- } else if (selection === 2) {
-    console.log('Ai chose Paper');
-    return computerSelection = 'Paper';
- } else {
-    console.log('Ai chose Scissors');
-    return computerSelection = 'Scissors';
- } 
- 
+  selection = Math.floor(Math.random() * 3 + 1);
+  if (selection === 1) {
+    return (computerChoice = "Rock");
+  } else if (selection === 2) {
+    return (computerChoice = "Paper");
+  } else {
+    return (computerChoice = "Scissors");
+  }
 }
+
+//console.log(computerChoice);
 
 function playerSelection() {
-   let choice = prompt("Rock paper or scissors?", '');
-   if (choice.toLowerCase() === 'rock') {
-      //console.log('REEEE');
-     return playerSelection = 'Rock';
-   } else if 
-      (choice.toLowerCase() === 'paper') {
-         //console.log('Paper');
-         return playerSelection = 'Paper';
-      } else if    
-      (choice.toLowerCase() === 'scissors') {
-       //  console.log('Scissors'); 
-         return playerSelection = 'Scissors';
-   } else {
-         return playerSelection = 'These are not valid entries!!!';
-
-   }
-   
+  let playerPrompt = prompt("Rock paper or scissors?");
+  if (playerPrompt.toLowerCase() === "rock") {
+    return (playerChoice = "Rock");
+  } else if (playerPrompt.toLowerCase() === "paper") {
+    return (playerChoice = "Paper");
+  } else if (playerPrompt.toLowerCase() === "scissors") {
+    return (playerChoice = "Scissors");
+  } else {
+    return (playerChoice = "These are not valid entries!!!");
+  }
 }
 
-let selection = playerSelection();
-let cselection = computerSelection();
+//console.log("test" + playerChoice);
 
-let playRound = function() {
-   if 
-   (playerSelection === computerSelection) {
-      console.log('its a tie.');
-   }
-   else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
-      console.log('Ai Wins!');
-   }
-   else if (playerSelection === 'Paper' && computerSelection === 'Scissors') {
-      console.log('Ai Wins!');
-   } 
-   else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
-         console.log('Ai Wins!');
-   }
-   else if (playerSelection === 'These are not valid entries!!!') {
-           console.log('Bro, wyd?...');
-
-   } else {
-      console.log('Damn you destroyed the AI...');
-
-}
+function playRound() {
+  playerSelection();
+  computerSelection();
+  //console.log(playerChoice);
+  // console.log(computerChoice);
+  if (playerChoice === computerChoice) {
+    return (roundWinner = "Tie game!");
+  } else if (playerChoice === "Rock" && computerChoice === "Paper") {
+    return (roundWinner = "Ai wins!");
+  } else if (playerChoice === "Paper" && computerChoice === "Scissors") {
+    return (roundWinner = "Ai wins!");
+  } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
+    return (roundWinner = "Ai wins!");
+  } else if (playerChoice === "These are not valid entries!!!") {
+    return (roundWinner = "Bro, wyd?");
+  } else {
+    return (roundWinner = "You win!");
+  }
 }
 
-let game = function() {
-   for (let i = 0; i < 5; i++) {
-      playRound();
-   }
-}
+let game = function () {
+  let gameWinner = "default";
+  let playerWins = 0,
+    computerWins = 0;
+  for (let i = 0; i < 5; i++) {
+    playRound();
+    if (roundWinner === "Tie game!") {
+      console.log("Ooof, tie round!");
+      playerWins++ && computerWins++;
+    } else if (roundWinner === "Ai wins!") {
+      console.log("Comp-u-tor wins this round!");
+      computerWins++;
+    } else {
+      roundWinner === "You win!";
+      {
+        playerWins++;
+        console.log("You win this round!");
+      }
+    }
+  }
+
+  console.log(playerWins);
+  console.log(computerWins);
+  if (playerWins === computerWins) {
+    console.log("Tie game, go again?"); // add prompt to reset, when we learn how.
+  } else if (playerWins > computerWins) {
+    console.log("You've won the game!");
+  } else if (playerWins < computerWins) {
+    console.log("Computer wins, rippu.");
+  }
+};
 
 //let computerSel= computerSelection();
-let play = playRound();
-//let sele = playerSelection();
+//let play = game();
+let sele = game();
