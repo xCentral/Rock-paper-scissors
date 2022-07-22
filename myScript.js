@@ -1,87 +1,97 @@
-let computerChoice = "default";
-let playerChoice = "default";
+let playerWins = 0;
+let computerWins = 0;
 let roundWinner = "default";
 
+
 function computerSelection() {
-  selection = Math.floor(Math.random() * 3 + 1);
-  if (selection === 1) {
-    return (computerChoice = "Rock");
-  } else if (selection === 2) {
-    return (computerChoice = "Paper");
-  } else {
-    return (computerChoice = "Scissors");
-  }
+  selection = ["Rock", "Paper", "Scissors"]
+  selection = selection[Math.floor(Math.random() * selection.length)];
+   return selection;
 }
 
-//console.log(computerChoice);
 
-function playerSelection() {
-  let playerPrompt = prompt("Rock paper or scissors?");
-  if (playerPrompt.toLowerCase() === "rock") {
-    return (playerChoice = "Rock");
-  } else if (playerPrompt.toLowerCase() === "paper") {
-    return (playerChoice = "Paper");
-  } else if (playerPrompt.toLowerCase() === "scissors") {
-    return (playerChoice = "Scissors");
-  } else {
-    return (playerChoice = "These are not valid entries!!!");
-  }
-}
+const rpsbuttons = document.querySelector('.buttons');
+rock.addEventListener('click', () => {
+  playRound('Rock');
+})
+paper.addEventListener('click', () => {
+  playRound('Paper');
+})
+scissor.addEventListener('click', () => {
+  playRound('Scissors');
+})
 
-//console.log("test" + playerChoice);
+function disableButtons() {
+  rpsbuttons.style.visibility="hidden";
+ }
 
-function playRound() {
-  playerSelection();
-  computerSelection();
-  //console.log(playerChoice);
-  // console.log(computerChoice);
+
+const buttons = document.querySelector('body');
+
+  const newDiv = document.createElement("div");
+  newDiv.classList.add('newDiv');
+  newDiv.textContent= ("Hi, Welcome to the best RPS game! Pick your poison");
+  buttons.appendChild(newDiv);
+
+  const scoreDiv = document.createElement("div");
+  newDiv.classList.add('scoreDiv');
+
+
+function playRound(playerChoice) {
+  buttons.appendChild(scoreDiv);
+  computerChoice = computerSelection();
   if (playerChoice === computerChoice) {
-    return (roundWinner = "Tie game!");
-  } else if (playerChoice === "Rock" && computerChoice === "Paper") {
-    return (roundWinner = "Ai wins!");
-  } else if (playerChoice === "Paper" && computerChoice === "Scissors") {
-    return (roundWinner = "Ai wins!");
-  } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
-    return (roundWinner = "Ai wins!");
-  } else if (playerChoice === "These are not valid entries!!!") {
-    return (roundWinner = "Bro, wyd?");
+    playerWins++; 
+    computerWins++;
+    newDiv.textContent= (`You both tied!`);
+    buttons.appendChild(newDiv);
+  
+   if (playerWins === 5 && computerWins === 5) {
+    newDiv.textContent= (`You both tied!`);
+    buttons.appendChild(newDiv);
+    disableButtons();
+   } else if (playerWins === 5) {
+    newDiv.textContent= (`I admit defeat, you win.`);
+    buttons.appendChild(newDiv);
+    disableButtons();
+   } else if  (computerWins === 5) {
+    newDiv.textContent= (`It seems I've bested you!`);
+    buttons.appendChild(newDiv);
+    disableButtons();
+   } 
+   
+
+  } else if (
+  (playerChoice === "Rock" && computerChoice === "Paper") || 
+  (playerChoice === "Paper" && computerChoice === "Scissors") || 
+  (playerChoice === "Scissors" && computerChoice === "Rock")) 
+  {
+    computerWins++;
+    newDiv.textContent= (`Computer wins`);
+    buttons.appendChild(newDiv);
+    
+    
+    if (computerWins === 5) {
+    newDiv.textContent= (`It seems I've bested you!`);
+    buttons.appendChild(newDiv);
+    disableButtons();
+    }
+
   } else {
-    return (roundWinner = "You win!");
+    playerWins++;
+    newDiv.textContent= (`You won the round!`);
+    buttons.appendChild(newDiv);
+    
+    if (playerWins === 5) {
+
+   newDiv.textContent= (`I admit defeat, you win.`);
+   buttons.appendChild(newDiv);
+   disableButtons();
   }
+  
+}
+scoreDiv.textContent= (`Player score: ${playerWins} Computer wins: ${computerWins}`);
 }
 
-let game = function () {
-  let gameWinner = "default";
-  let playerWins = 0,
-    computerWins = 0;
-  for (let i = 0; i < 5; i++) {
-    playRound();
-    if (roundWinner === "Tie game!") {
-      console.log("Ooof, tie round!");
-      playerWins++ && computerWins++;
-    } else if (roundWinner === "Ai wins!") {
-      console.log("Comp-u-tor wins this round!");
-      computerWins++;
-    } else {
-      roundWinner === "You win!";
-      {
-        playerWins++;
-        console.log("You win this round!");
-      }
-    }
-  }
 
-  console.log(playerWins);
-  console.log(computerWins);
-  if (playerWins === computerWins) {
-    console.log("Tie game, go again?"); // add prompt to reset, when we learn how.
-  } else if (playerWins > computerWins) {
-    console.log("You've won the game!");
-  } else if (playerWins < computerWins) {
-    console.log("Computer wins, rippu.");
-  }
-};
 
-//let computerSel= computerSelection();
-//let play = game();
-let sele = game();

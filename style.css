@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-top: 250px;
+    flex-direction: column;
+    background-color: aquamarine;
+    align-items: center;
+}
+
+.buttons {
+ display: flex;
+ align-items: space-between;
+ margin-bottom: 20px;
+}
